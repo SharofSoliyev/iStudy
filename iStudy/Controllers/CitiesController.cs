@@ -34,7 +34,7 @@ namespace iStudy.API.Controllers
         }
 
 
-        [HttpPost("UPDATE-CITY")]
+        [HttpPatch("UPDATE-CITY")]
         public  IActionResult UpdateCities(CitiesDto cities)
         {
             var result = _citiesService.UpdateCites(cities).Result;
@@ -50,7 +50,7 @@ namespace iStudy.API.Controllers
 
         }
 
-        [HttpPost("DELETE-CITY")]
+        [HttpDelete("DELETE-CITY")]
         public IActionResult DeleteCities(int id)
         {
             var result = _citiesService.Delete(id).Result;

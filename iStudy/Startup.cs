@@ -72,6 +72,7 @@ namespace iStudy
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IStudentSubjectsService, StudentSubjectsService>();
             services.AddScoped<ITeacherSubjectsService, TeacherSubjectsService>();
+            services.AddScoped<ISubjectService,SubjectService>();
             services.AddAutoMapper(typeof(IEMapper));
 
         }

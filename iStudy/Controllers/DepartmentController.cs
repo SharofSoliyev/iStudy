@@ -34,7 +34,7 @@ namespace iStudy.API.Controllers
         }
 
 
-        [HttpPost("UPDATE-DEPARTMENT")]
+        [HttpPatch("UPDATE-DEPARTMENT")]
         public IActionResult UpdateCities(DepartmentDto department)
         {
             var result = _departmentService.UpdateDepartment(department).Result;
@@ -50,7 +50,7 @@ namespace iStudy.API.Controllers
 
         }
 
-        [HttpPost("DELETE-DEPARTMENT")]
+        [HttpDelete("DELETE-DEPARTMENT")]
         public IActionResult DeleteCities(int id)
         {
             var result = _departmentService.Delete(id).Result;

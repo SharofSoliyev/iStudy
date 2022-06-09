@@ -37,7 +37,7 @@ namespace iStudy.API.Controllers
             
         }
 
-        [HttpPost("UPDATE-STUDENTS")]
+        [HttpPatch("UPDATE-STUDENTS")]
         public IActionResult UpdateStudents(StudentDto students)
         {
             var result = _studentService.UpdateStudents(students).Result;
@@ -53,7 +53,7 @@ namespace iStudy.API.Controllers
 
         }
 
-        [HttpPost("DELETE-STUDENTS")]
+        [HttpDelete("DELETE-STUDENTS")]
         public IActionResult DeleteStudents(int id)
         {
             var result = _studentService.DeleteStudents(id).Result;

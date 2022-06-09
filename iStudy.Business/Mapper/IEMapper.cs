@@ -20,7 +20,7 @@ namespace iStudy.Business.Mapper
             CreateMap<StudentSubjectsDto, STUDENTS_SUBJECTS>().ReverseMap();
             CreateMap<SubjectsDto, SUBJECTS>().ReverseMap();
             CreateMap<TeacherDto, TEACHERS>().ReverseMap();
-            CreateMap<TeachersSubjects, TEACHERS_SUBJECTS>().ReverseMap();
+            CreateMap<TeachersSubjectsDto, TEACHERS_SUBJECTS>().ReverseMap();
 
         }
     }

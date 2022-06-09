@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iStudy.Business.Dtos
 {
-    public class TeachersSubjects
+    public class TeachersSubjectsDto
     {
         public int TeacherId { get; set; }
         public int SubjectId { get; set; }

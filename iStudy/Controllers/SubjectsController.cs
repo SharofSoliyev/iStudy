@@ -6,30 +6,33 @@ using System.Collections.Generic;
 
 namespace iStudy.API.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
 
-    
-    public class TeachersController : Controller
+    public class SubjectsController : Controller
     {
-        private readonly ITeachersService _teacherService;
-        public TeachersController(ITeachersService teachersService)
+        private readonly ISubjectService _subjectsService;
+
+        public SubjectsController(
+
+            ISubjectService subjectService
+            )
         {
-            this._teacherService = teachersService;
+            this._subjectsService = subjectService;
         }
 
-
-        [HttpGet("GET-ALL-TEACHERS")]
-        public List<TEACHERS> Get()
+        [HttpGet("GET-ALL-SUBJECTS")]
+        public IEnumerable<SUBJECTS> Get()
         {
-            var teachers = _teacherService.GetAll();
+            var teachers = _subjectsService.GetAll();
             return teachers;
         }
-        [HttpPost("CREATE-TEACHERS")]
-        public IActionResult Create(TeacherDto teacher)
+        [HttpPost("CREATE-SUBJECTS")]
+        public IActionResult Create(SubjectsDto subjects)
         {
 
-            var result = _teacherService.CreateTeachers(teacher);
+            var result = _subjectsService.CreateSubjects(subjects);
 
             if (result != null)
             {
@@ -39,10 +42,10 @@ namespace iStudy.API.Controllers
 
         }
 
-        [HttpPatch("UPDATE-TEACHERS")]
-        public IActionResult UpdateStudents(TeacherDto teacher)
+        [HttpPatch("UPDATE-SUBJECTS")]
+        public IActionResult UpdateSubjects(int subjects)
         {
-            var result = _teacherService.UpdateTeachers(teacher).Result;
+            var result = _subjectsService.Delete(subjects).Result;
 
             if (result)
             {
@@ -55,10 +58,10 @@ namespace iStudy.API.Controllers
 
         }
 
-        [HttpDelete("DELETE-TEACHERS")]
-        public IActionResult DeleteStudents(int id)
+        [HttpDelete("DELETE-SUBJECTS")]
+        public IActionResult DeleteSubjects(int id)
         {
-            var result = _teacherService.DeleteTeachers(id).Result;
+            var result = _subjectsService.Delete(id).Result;
 
             if (result)
             {
