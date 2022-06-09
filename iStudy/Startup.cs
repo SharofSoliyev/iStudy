@@ -1,3 +1,4 @@
+using iStudy.Business.Services;
 using iStudy.Core.Repository;
 using iStudy.Infrastructure.Data;
 using iStudy.Infrastructure.Repository;
@@ -63,6 +64,8 @@ namespace iStudy
         {
             services.AddDbContext<AppDataContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IStudentService,StudentService>();
+            services.AddScoped<ITeachersService, TeachersService>();
 
         }
     }

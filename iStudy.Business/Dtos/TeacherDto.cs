@@ -1,14 +1,13 @@
-﻿using iStudy.Core.Entities.Base;
-using iStudy.Core.Enums;
+﻿using iStudy.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iStudy.Core.Entities
+namespace iStudy.Business.Dtos
 {
-   public class TEACHERS : Entity
+    public class TeacherDto
     {
         public string Name { get; set; }
         public int CityId { get; set; }
@@ -18,6 +17,5 @@ namespace iStudy.Core.Entities
         public GenderEnum Gender { get; set; }
 
         public int Age { get; set; }
-        public CITIES CITIES { get; set; }
     }
 }

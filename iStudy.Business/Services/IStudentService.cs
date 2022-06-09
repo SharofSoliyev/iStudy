@@ -19,7 +19,7 @@ namespace iStudy.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<STUDENTS>> GetAll()
+        public List<STUDENTS> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -71,7 +71,7 @@ namespace iStudy.Business.Services
     }
     public interface IStudentService
     {
-        public Task<List<STUDENTS>> GetAll();
+        public List<STUDENTS> GetAll();
         public STUDENTS GetById(int id);
         public Task<List<STUDENTS>> GetByOrderGender();
 
