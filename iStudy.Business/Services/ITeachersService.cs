@@ -12,7 +12,7 @@ namespace iStudy.Business.Services
 {
     public interface ITeachersService
     {
-
+        public List<TEACHERS> GetAll();
         public List<TEACHERS> GetAllSortByGender();
 
         public List<TEACHERS> GetAllSortByAge();
@@ -20,7 +20,7 @@ namespace iStudy.Business.Services
         public List<TEACHERS> GetAllSortBySubject();
 
         public Task<TEACHERS> CreateTeachers(TeacherDto st);
-        public Task<bool> UpdateTeachers(StudentDto st);
+        public Task<bool> UpdateTeachers(TeacherDto st);
         public Task<bool> DeleteTeachers(int st);
     }
 
@@ -51,6 +51,11 @@ namespace iStudy.Business.Services
             else { await _repository.DeleteAsync(result); return true; }
         }
 
+        public List<TEACHERS> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
         public   List<TEACHERS> GetAllSortByAge()
         {
 
@@ -70,7 +75,7 @@ namespace iStudy.Business.Services
             return result;
         }
 
-        public  async Task<bool> UpdateTeachers(StudentDto st)
+        public  async Task<bool> UpdateTeachers(TeacherDto st)
         {
 
             try

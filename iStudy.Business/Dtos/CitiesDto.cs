@@ -8,6 +8,7 @@ namespace iStudy.Business.Dtos
 {
     public class CitiesDto
     {
+        public int id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using iStudy.Business.Services;
+﻿using iStudy.Business.Dtos;
+using iStudy.Business.Services;
 using iStudy.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace iStudy.API.Controllers
             return Students;
         }
         [HttpPost("CREATE-STUDENTS")]
-        public IActionResult Create(STUDENTS students)
+        public IActionResult Create(StudentDto students)
         {
            
               var result =  _studentService.CreateStudents(students);
@@ -36,6 +37,38 @@ namespace iStudy.API.Controllers
             
         }
 
-        
+        [HttpPost("UPDATE-STUDENTS")]
+        public IActionResult UpdateStudents(StudentDto students)
+        {
+            var result = _studentService.UpdateStudents(students).Result;
+
+            if (result)
+            {
+                return Ok("Succes");
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [HttpPost("DELETE-STUDENTS")]
+        public IActionResult DeleteStudents(int id)
+        {
+            var result = _studentService.DeleteStudents(id).Result;
+
+            if (result)
+            {
+                return Ok("Succes");
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
+
+
     }
 }
