@@ -1,3 +1,5 @@
+using AutoMapper;
+using iStudy.Business.Mapper;
 using iStudy.Business.Services;
 using iStudy.Core.Repository;
 using iStudy.Infrastructure.Data;
@@ -66,6 +68,11 @@ namespace iStudy
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IStudentService,StudentService>();
             services.AddScoped<ITeachersService, TeachersService>();
+            services.AddScoped<ICitiesService, CitiesService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IStudentSubjectsService, StudentSubjectsService>();
+            services.AddScoped<ITeacherSubjectsService, TeacherSubjectsService>();
+            services.AddAutoMapper(typeof(IEMapper));
 
         }
     }

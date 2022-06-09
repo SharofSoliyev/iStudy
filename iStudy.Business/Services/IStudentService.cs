@@ -1,4 +1,7 @@
-﻿using iStudy.Core.Entities;
+﻿using AutoMapper;
+using iStudy.Business.Dtos;
+using iStudy.Core.Entities;
+using iStudy.Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,85 +12,121 @@ namespace iStudy.Business.Services
 {
     public class StudentService : IStudentService
     {
-        public Task<STUDENTS> CreateStudents(STUDENTS st)
-        {
-            throw new NotImplementedException();
-        }
+        public readonly IRepository<STUDENTS> _repository;
+        public readonly IMapper _mapper;
 
-        public Task<STUDENTS> DeleteStudents(STUDENTS st)
+        public StudentService(
+             IRepository<STUDENTS> repository,
+            IMapper mapper
+            )
         {
-            throw new NotImplementedException();
+            this._repository = repository;
+            this._mapper = mapper;
         }
+        public Task<STUDENTS> CreateStudents(StudentDto st)
+        {
+            var result = _mapper.Map<STUDENTS>(st);
+            return _repository.AddAsync(result);
+        }
+        
+        public async Task<bool> DeleteStudents(int id)
+        {
+            var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return false;
+            else { await _repository.DeleteAsync(result); return true; }
+        }
+        
 
         public List<STUDENTS> GetAll()
         {
-            throw new NotImplementedException();
+            return _repository.GetAll().ToList();
         }
 
         public STUDENTS GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _repository.GetAllByExp(s => s.Id == id).FirstOrDefault();
+
+            return result;
         }
 
-        public Task<List<STUDENTS>> GetByOrderAge()
+        public List<STUDENTS> GetByOrderAge()
+        {
+            var result =   _repository.GetAll().OrderBy(s => s.Age).ToList();
+            return result;
+        }
+
+        public List<STUDENTS> GetByOrderCity()
+        {
+            var result = _repository.GetAll().OrderBy(s => s.CityId).ToList();
+            return result;
+        }
+
+        public List<STUDENTS> GetByOrderDepartment()
+        {
+            var result = _repository.GetAll().OrderBy(s => s.DepartmentId).ToList();
+            return result;
+        }
+
+        public List<STUDENTS> GetByOrderGender()
+        {
+            var result = _repository.GetAll().OrderBy(s => s.Gender).ToList();
+            return result;
+        }
+
+        public List<STUDENTS> GetByOrderGrade()
+        {
+            var result = _repository.GetAll().OrderBy(s => s.CurrentGradeLevel).ToList();
+            return result;
+        }
+
+        public List<STUDENTS> GetByOrderStudyingSubject()
+        {
+
+            throw new Exception();
+        }
+
+        public List<STUDENTS> GetByOrderZodiacSign()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<STUDENTS>> GetByOrderCity()
+        public async Task<bool> UpdateStudents(StudentDto st)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _mapper.Map<STUDENTS>(st);
+               await _repository.UpdateAsync(result);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
-        public Task<List<STUDENTS>> GetByOrderDepartment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<STUDENTS>> GetByOrderGender()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<STUDENTS>> GetByOrderGrade()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<STUDENTS>> GetByOrderStudyingSubject()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<STUDENTS>> GetByOrderZodiacSign()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<STUDENTS> UpdateStudents(STUDENTS st)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
     public interface IStudentService
     {
         public List<STUDENTS> GetAll();
         public STUDENTS GetById(int id);
-        public Task<List<STUDENTS>> GetByOrderGender();
+        public List<STUDENTS> GetByOrderGender();
 
-        public Task<STUDENTS> CreateStudents(STUDENTS st);
-        public Task<STUDENTS> UpdateStudents(STUDENTS st);
-        public Task<STUDENTS> DeleteStudents(STUDENTS st);
+        public Task<STUDENTS> CreateStudents(StudentDto st);
+        public Task<bool> UpdateStudents(StudentDto st);
+        public Task<bool> DeleteStudents(int st);
 
-        public Task<List<STUDENTS>> GetByOrderDepartment();
-        public Task<List<STUDENTS>> GetByOrderAge();
-        public Task<List<STUDENTS>> GetByOrderCity();
+        public List<STUDENTS> GetByOrderDepartment();
+        public List<STUDENTS> GetByOrderAge();
+        public List<STUDENTS> GetByOrderCity();
 
-        public Task<List<STUDENTS>> GetByOrderZodiacSign();
+        public List<STUDENTS> GetByOrderZodiacSign();
 
-        public Task<List<STUDENTS>> GetByOrderGrade();
+        public List<STUDENTS> GetByOrderGrade();
 
-        public Task<List<STUDENTS>> GetByOrderStudyingSubject();
+        public List<STUDENTS> GetByOrderStudyingSubject();
 
     }
 }

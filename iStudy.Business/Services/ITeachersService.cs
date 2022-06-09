@@ -1,4 +1,6 @@
-﻿using iStudy.Core.Entities;
+﻿using AutoMapper;
+using iStudy.Business.Dtos;
+using iStudy.Core.Entities;
 using iStudy.Core.Repository;
 using System;
 using System.Collections.Generic;
@@ -16,17 +18,39 @@ namespace iStudy.Business.Services
         public List<TEACHERS> GetAllSortByAge();
 
         public List<TEACHERS> GetAllSortBySubject();
+
+        public Task<TEACHERS> CreateTeachers(TeacherDto st);
+        public Task<bool> UpdateTeachers(StudentDto st);
+        public Task<bool> DeleteTeachers(int st);
     }
 
     public class TeachersService : ITeachersService
     {
 
         public readonly IRepository<TEACHERS> _repository;
+        public readonly IMapper _mapper;
 
-        public TeachersService(IRepository<TEACHERS> repository)
+        public TeachersService(IRepository<TEACHERS> repository,IMapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
+
+        public Task<TEACHERS> CreateTeachers(TeacherDto st)
+        {
+            var result = _mapper.Map<TEACHERS>(st);
+            return _repository.AddAsync(result);
+        }
+
+        public async Task<bool> DeleteTeachers(int id)
+        {
+
+            var result = await _repository.GetByIdAsync(id);
+            if (result == null)
+                return false;
+            else { await _repository.DeleteAsync(result); return true; }
+        }
+
         public   List<TEACHERS> GetAllSortByAge()
         {
 
@@ -44,6 +68,21 @@ namespace iStudy.Business.Services
         {
               var result = _repository.GetAll().OrderBy(s => s.Gender).ToList();
             return result;
+        }
+
+        public  async Task<bool> UpdateTeachers(StudentDto st)
+        {
+
+            try
+            {
+                var result = _mapper.Map<TEACHERS>(st);
+                await _repository.UpdateAsync(result);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

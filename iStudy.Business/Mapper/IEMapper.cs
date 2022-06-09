@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using iStudy.Business.Dtos;
+using iStudy.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +13,15 @@ namespace iStudy.Business.Mapper
     {
         public IEMapper()
         {
-          
 
+            CreateMap<CitiesDto, CITIES>().ReverseMap();
+            CreateMap<DepartmentDto, DEPARTMENTS>().ReverseMap();
+            CreateMap<StudentDto, STUDENTS>().ReverseMap();
+            CreateMap<StudentSubjectsDto, STUDENTS_SUBJECTS>().ReverseMap();
+            CreateMap<SubjectsDto, SUBJECTS>().ReverseMap();
+            CreateMap<TeacherDto, TEACHERS>().ReverseMap();
+            CreateMap<TeachersSubjects, TEACHERS_SUBJECTS>().ReverseMap();
 
-            //CreateMap<ProductModel, Product>().ForMember(entity => entity.CategoryId, model => model.MapFrom(soure => soure.Category.Id)).ForMember(entity => entity.DiscountId, model => model.MapFrom(soure => soure.Discount.Id));
-            //CreateMap<AppUser, UserModel>().ReverseMap();
-
-            //CreateMap<Application, Project>()
-            //    .ForMember(d => d.ApplicationId, s => s.MapFrom(m => m.Id))
-            //    .ForMember(d => d.ProjectAttachments, s => s.MapFrom(m => m.ApplicationAttachments));
-            //.ForAllMembers(opt=> opt.Condition((src, dest, srcMember, destMember) => destMember != null));
         }
     }
 
